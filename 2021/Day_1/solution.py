@@ -3,7 +3,7 @@
 
 def load_data():
     # Read contents of file
-    my_file = open('depth_measurement_data.txt', 'r')
+    my_file = open('data.txt', 'r')
     contents = my_file.readlines()
     my_file.close()
     contents = [int(content) for content in contents]

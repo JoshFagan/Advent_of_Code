@@ -3,7 +3,7 @@
 
 def load_data():
     # Read contents of file
-    my_file = open('planned_course.txt', 'r')
+    my_file = open('data.txt', 'r')
     contents = my_file.readlines()
     my_file.close()
 
