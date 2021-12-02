@@ -33,7 +33,6 @@ def first_half(course):
     # What do you get if you multiply your final horizontal position by your 
     # final depth?
     solution = horiz_pos*depth
-
     print('\nSolution for first half!')
     print('Product of depth and horizontal position: {}\n'.format(solution))
 
@@ -64,7 +63,6 @@ def second_half(course):
     # What do you get if you multiply your final horizontal position by your 
     # final depth?
     solution = horiz_pos*depth
-
     print('Solution for second half!')
     print('Product of depth and horizontal position: {}\n'.format(solution))
 
