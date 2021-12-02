@@ -11,34 +11,47 @@ def load_data():
 
 
 def first_half(course):
-    # Calculate the horizontal position and depth you would have after following the planned course.
-    horiz = 0
+    # Calculate the horizontal position and depth you would have after following
+    # the planned course.
+    horiz_pos = 0
     depth = 0
+
     for i in range(len(course)):
         direction, amount = course[i].split(' ')
         amount = int(amount) 
+
         if direction == 'forward':
-            horiz += amount
+            # Forward X increases the horizontal position by X units.
+            horiz_pos += amount
         elif direction == 'down':
+            # Down X increases the depth by X units.
             depth += amount
         elif direction =='up':
+            # Up X decreases the depth by X units. 
             depth -= amount
 
+    # What do you get if you multiply your final horizontal position by your 
+    # final depth?
+    solution = horiz_pos*depth
+
     print('\nSolution for first half!')
-    print('Product of depth and horizontal: {}\n'.format(horiz*depth))
+    print('Product of depth and horizontal position: {}\n'.format(solution))
 
 
 def second_half(course):
-    horiz = 0
+    # Using the new interpretation of the commands, calculate the horizontal 
+    # position and depth you would have after following the planned course.
+    horiz_pos = 0
     depth = 0
     aim = 0
+
     for i in range(len(course)):
         direction, amount = course[i].split(' ')
         amount = int(amount) 
         if direction == 'forward':
             # Forward X does two things:
             # It increases your horizontal position by X units.
-            horiz += amount
+            horiz_pos += amount
             # It increases your depth by your aim multiplied by X.
             depth += (aim * amount)
         elif direction == 'down':
@@ -50,8 +63,10 @@ def second_half(course):
 
     # What do you get if you multiply your final horizontal position by your 
     # final depth?
+    solution = horiz_pos*depth
+
     print('Solution for second half!')
-    print('Product of depth and horizontal: {}\n'.format(horiz*depth))
+    print('Product of depth and horizontal position: {}\n'.format(solution))
 
 
 def main():
