@@ -13,6 +13,10 @@ def load_data():
 
 def main():
     depths = load_data() 
+    
+    diffs = [depths[i-1] < depths[i] for i in range(1,len(depths))]
+
+    print('Number of increasing measurements: {}'.format(sum(diffs)))
 
 
 if __name__ == '__main__':
