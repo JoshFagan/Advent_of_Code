@@ -3,30 +3,34 @@
 import numpy as np
 import scipy
 from scipy import stats
+import csv
+from scipy.optimize import minimize
+from math import ceil
 
 
 def load_data():
     # Read contents of file
-    my_file = open('data.txt', 'r')
-    contents = my_file.readlines()
-    my_file.close()
-
-    return contents 
-
-
-def process_data(raw_data):
-    return 
+    with open('data.txt', 'r') as csvfile:
+        data = csv.reader(csvfile, delimiter=',')
+        data = np.array([int(height) for row in data for height in row])
+    return data 
 
 
-def first_half(input): 
-    solution = 'NOT DONE YET' 
+def first_half(heights): 
+    fun = lambda x: sum(abs(x - heights))
+    res = minimize(fun,5) 
+    min_height = round(res.x[0])
+    solution = int(round(fun(min_height)))
     print('\nSolution for first half!')
     print('SOLUTION DESCRIPTION: {}\n'.format(solution))
     return 
         
 
-def second_half(input):
-    solution = 'NOT DONE YET' 
+def second_half(heights):
+    fun = lambda x: sum((abs(x-heights)*(abs(x-heights)+1))/2)
+    res = minimize(fun,2) 
+    min_height = round(res.x[0])
+    solution = int(round(fun(min_height)))
     print('\nSolution for first half!')
     print('SOLUTION DESCRIPTION: {}\n'.format(solution))
     return
@@ -34,7 +38,6 @@ def second_half(input):
 
 def main():
     data = load_data() 
-    process_data(data)
     first_half(data)
     second_half(data)
 
