@@ -41,12 +41,6 @@ def first_half(outputs):
 def subtract_digits(entry, digit):
     return np.array([len(x-digit) for x in entry])
 
-
-def remove_known_conns(signal, lengths, known_lengths):
-    for length in known_lengths:
-        signal[lengths==length] = [set('')]
-    return signal
-
     
 def second_half(signals, outputs):
     solution = 0
