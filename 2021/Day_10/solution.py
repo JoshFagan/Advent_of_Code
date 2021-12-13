@@ -1,8 +1,4 @@
-#!/Users/josh/opt/anaconda3/bin/python
-
-#import numpy as np
-#import scipy
-#from scipy import stats
+#!/usr/bin/python3.8
 
 
 def load_data():
