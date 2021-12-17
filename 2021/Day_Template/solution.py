@@ -1,17 +1,14 @@
 #!/usr/bin/python3.8
 
-import numpy as np
-import scipy
-from scipy import stats
+import csv
 
 
 def load_data():
     # Read contents of file
-    my_file = open('data.txt', 'r')
-    contents = my_file.readlines()
-    my_file.close()
-
-    return contents 
+    with open('data.txt', 'r') as csvfile:
+        data = csv.reader(csvfile, delimiter='<DELIMITER>')
+        data = np.array([[value for value in row] for row in data])
+    return data
 
 
 def process_data(raw_data):
