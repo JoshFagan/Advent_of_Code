@@ -42,7 +42,7 @@ def first_half(report):
     print('Product of gamma and epsilon: {}\n'.format(solution))
 
 
-def second_half_recusion(report, bit, use_most_freq):
+def second_half_recursion(report, bit, use_most_freq):
     (most_freq, count) = stats.mode([entry[bit] for entry in report], axis=0)
 
     # If 0 and 1 are equally common, use special rules
@@ -55,15 +55,15 @@ def second_half_recusion(report, bit, use_most_freq):
     if len(filtered) == 1:
         return filtered
     else:
-        return second_half_recusion(filtered, bit+1, use_most_freq)
+        return second_half_recursion(filtered, bit+1, use_most_freq)
         
 
 
 def second_half(report):
     # Verify the life support rating, which can be determined by multiplying 
     # the oxygen generator rating by the CO2 scrubber rating
-    oxygen_rating = second_half_recusion(report, 0, 1)
-    co2_rating = second_half_recusion(report, 0, 0)
+    oxygen_rating = second_half_recursion(report, 0, 1)
+    co2_rating = second_half_recursion(report, 0, 0)
 
     oxygen_rating = int(''.join([str(o) for o in oxygen_rating[0]]), 2)
     co2_rating = int(''.join([str(c) for c in co2_rating[0]]), 2)
