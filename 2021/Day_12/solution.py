@@ -13,9 +13,13 @@ def load_data():
 
 
 def create_graph(connections):
+    print(connections)
     graph = {key: set([]) for key in np.unique(connections)}
     for c in connections:
         graph[c[0]].add(c[1])
+        # Add reciprocal connection unless:
+        # - First cave is start (no cave should lead back to start)
+        # - Second cave is end (end should not lead to any cave)
         if c[0] != 'start' and c[1] != 'end':
             graph[c[1]].add(c[0])
 
@@ -36,14 +40,13 @@ def recursive_func(graph, cave, cave_path, small_caves, start_to_end,
     print(small_caves)
     print(visited_twice)
 
-    # Check if this is "end"
-    if cave == 'end':
-        cave_path.append(cave)
-        start_to_end.append(cave_path)
-        return
-
     # Update path to current cave
     cave_path.append(cave)
+
+    # Check if this is "end"
+    if cave == 'end':
+        start_to_end.append(cave_path)
+        return
 
     # Update list of small caves visited
     if cave.islower() and not cave == 'start':
