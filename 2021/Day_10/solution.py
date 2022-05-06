@@ -1,4 +1,4 @@
-#!/usr/bin/python3.8
+#!/Users/josh/.local/share/virtualenvs/Advent_of_Code-07aOslbA/bin/python3
 
 
 def load_data():
