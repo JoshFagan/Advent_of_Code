@@ -50,48 +50,37 @@ def recursive_func(banned_caves, cave, cave_path, graph, num_revisits,
 
     # Check if this is "end"
     if cave == 'end':
+#        if cave_path not in start_to_end:
         start_to_end.append(cave_path)
+        return
+    
+    # Handle big caves
+    if cave.isupper() or cave == 'start':
+        for child in graph[cave] - banned_caves:
+            recursive_func(set(banned_caves), child, cave_path[:], graph, 
+                           num_revisits, start_to_end)
         return
 
     # Handle small caves
     if cave.islower():
         # Case when a revisit to this cave is allowed
         if num_revisits > 0:
-            num_revisits -= 1
+            for child in graph[cave] - banned_caves - set(['end']):
+                recursive_func(set(banned_caves), child, cave_path[:], graph, 
+                               num_revisits-1, start_to_end)
         # Case when a revisit to this cave is not allowed
-        else:
-            banned_caves.add(cave)
-    
-    # Visit all viable caves
-    for child in graph[cave] - banned_caves:
-        recursive_func(banned_caves, child, cave_path[:], graph, num_revisits, 
-                       start_to_end)
-    return
+        banned_caves.add(cave)
+        for child in graph[cave] - banned_caves:
+            recursive_func(set(banned_caves), child, cave_path[:], graph, 
+                           num_revisits, start_to_end)
 
-
-
-    # Pass over this node to double tap
-    small_caves.add(cave)
-    for child in graph[cave] - small_caves:
-        recursive_func(graph, child, cave_path[:], set(small_caves), 
-                       start_to_end, 0)
-    small_caves.remove(cave)
-    
-    # Double tap this node
-    if visited_twice: 
-        small_caves.add(cave)
-    else:
-        visited_twice = 1
-    for child in graph[cave] - small_caves:
-        recursive_func(graph, child, cave_path[:], set(small_caves), 
-                       start_to_end, visited_twice)
 
 
 def first_half(map): 
     graph = create_graph(map)
     solutions = []
     print(graph)
-    recursive_func(graph, 'start', [], set(['start']), solutions, 0)
+    recursive_func(set(['start']), 'start', [], graph, 0, solutions)
     solution = len(solutions) 
     print('\nSolution for first half!')
     print('SOLUTION DESCRIPTION: {}\n'.format(solution))
@@ -101,12 +90,12 @@ def first_half(map):
 def second_half(map):
     graph = create_graph(map)
     solutions = []
-    recursive_func(graph, 'start', [], set([]), solutions, 0)
+    recursive_func(set(['start']), 'start', [], graph, 1, solutions)
     print('-------------')
     for sol in solutions:
         print(sol)
     solution = len(solutions) 
-    print('\nSolution for first half!')
+    print('\nSolution for second half!')
     print('SOLUTION DESCRIPTION: {}\n'.format(solution))
     return
 
