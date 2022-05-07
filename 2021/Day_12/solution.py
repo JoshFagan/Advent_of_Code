@@ -50,7 +50,6 @@ def recursive_func(banned_caves, cave, cave_path, graph, num_revisits,
 
     # Check if this is "end"
     if cave == 'end':
-#        if cave_path not in start_to_end:
         start_to_end.append(cave_path)
         return
     
@@ -64,7 +63,7 @@ def recursive_func(banned_caves, cave, cave_path, graph, num_revisits,
     # Handle small caves
     if cave.islower():
         # Case when a revisit to this cave is allowed
-        if num_revisits > 0:
+        if num_revisits > 0: 
             for child in graph[cave] - banned_caves - set(['end']):
                 recursive_func(set(banned_caves), child, cave_path[:], graph, 
                                num_revisits-1, start_to_end)
