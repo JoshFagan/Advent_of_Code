@@ -4,15 +4,6 @@ import numpy as np
 import csv
 
 
-class Cave():
-    def __init__(self, is_bing, is_small, name):
-        self.name         = name
-        self.connected_to = []
-        self.num_visits   = 0
-        self.is_big       = is_big
-        self.is_small     = is_small
-
-
 def load_data():
     # Read contents of file
     with open('data.txt', 'r') as csvfile:
