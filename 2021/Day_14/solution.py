@@ -40,28 +40,23 @@ def first_half(rules, s_count, p_count, num_step):
 
 
 def insertion_step(rules, s_count, p_count):
-    new_p_count = p_count.copy()
+    new_p_count = {}
     for (p, count) in p_count.items():
         new_e = rules[p]
-        for i in range(count):
-            # Add count for new letter being added
-            s_count[new_e] = s_count.get(new_e, 0) + 1
-            # Decrement old pair count
-            new_p_count[p] = max(new_p_count.get(p, 1) - 1, 0)
-            # Increment two new pair counts
-            new_p_count[p[0]+new_e] = new_p_count.get(p[0]+new_e, 0) + 1
-            new_p_count[new_e+p[1]] = new_p_count.get(new_e+p[1], 0) + 1
+        # Add count for new letter being added
+        s_count[new_e] = s_count.get(new_e, 0) + count
+        # Increment two new pair counts
+        new_p_count[p[0]+new_e] = new_p_count.get(p[0]+new_e, 0) + count 
+        new_p_count[new_e+p[1]] = new_p_count.get(new_e+p[1], 0) + count
 
     return new_p_count
         
 
 def second_half(rules, s_count, p_count, num_step):
     for step in range(num_step):
-        print(step)
         p_count = insertion_step(rules, s_count, p_count)
 
     solution = max(s_count.values()) - min(s_count.values()) 
-    solution = 'NOT DONE YET' 
     print('\nSolution for first half!')
     print('SOLUTION DESCRIPTION: {}\n'.format(solution))
     return
