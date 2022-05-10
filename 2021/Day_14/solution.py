@@ -12,92 +12,55 @@ def load_data():
 
 
 def process_data(raw_data):
+    poly = raw_data[0][0]
     rules = {}
-    template = raw_data[0][0]
+    pair_count = {}
+    sing_count = {}
 
     for rule in raw_data[2:]:
         rules[rule[0]] = rule[2]
 
-    return rules, template 
+    for i in range(len(poly)-1):
+        pair_count[poly[i:i+2]] = pair_count.get(poly[i:i+2], 0) + 1
+        sing_count[poly[i]] = sing_count.get(poly[i], 0) + 1
+
+    sing_count[poly[-1]] = sing_count.get(poly[-1], 0) + 1
+
+    return poly, rules, sing_count, pair_count
 
 
-def get_letter_counts(poly_counts):
-    letter_counts = {}
-    for poly in poly_counts:
-        try:
-            letter_counts[poly[0]] += poly_counts[poly] 
-        except:
-            letter_counts[poly[0]] = poly_counts[poly] 
-        try:
-            letter_counts[poly[1]] += poly_counts[poly] 
-        except:
-            letter_counts[poly[1]] = poly_counts[poly] 
-
-    return letter_counts 
-
-
-def first_half(num_step, rules, template): 
-    print(template)
-    polymer = list(template)
-
+def first_half(rules, s_count, p_count, num_step):
     for step in range(num_step):
-        for i in range(len(polymer)-1,0,-1):
-            rule = polymer[i-1]+polymer[i]
-            try:
-                polymer.insert(i, rules[rule])
-            except:
-                pass
+        p_count = insertion_step(rules, s_count, p_count)
 
-
-    
-
-
-
-def first_half_dict(num_step, rules, template): 
-    poly_counts = {}
-    for i in range(len(template)-1):
-        poly = template[i:i+2]
-        try:
-            poly_counts[poly] += 1
-        except:
-            poly_counts[poly] = 1
-
-    for step in range(num_step):
-        new_poly_count = poly_counts.copy()
-        for rule in rules:
-            try:
-                num_poly = poly_counts[rule]
-            except:
-                continue
-
-            # Subtract number of old pair
-            new_poly_count[rule] -= num_poly
-            # Add number of left pair
-            try:
-                new_poly_count[rule[0]+rules[rule]] += num_poly
-            except:
-                new_poly_count[rule[0]+rules[rule]] = num_poly
-            # Add number of right pair
-            try:
-                new_poly_count[rules[rule]+rule[1]] += num_poly
-            except:
-                new_poly_count[rules[rule]+rule[1]] = num_poly
-
-        poly_counts = new_poly_count 
-
-    letter_counts = get_letter_counts(poly_counts)
-    print(letter_counts)
-
-    least_common = min(letter_counts.values())
-    most_common = max(letter_counts.values())
-
-    solution = most_common - least_common 
+    solution = max(s_count.values()) - min(s_count.values()) 
     print('\nSolution for first half!')
     print('SOLUTION DESCRIPTION: {}\n'.format(solution))
     return 
+
+
+def insertion_step(rules, s_count, p_count):
+    new_p_count = p_count.copy()
+    for (p, count) in p_count.items():
+        new_e = rules[p]
+        for i in range(count):
+            # Add count for new letter being added
+            s_count[new_e] = s_count.get(new_e, 0) + 1
+            # Decrement old pair count
+            new_p_count[p] = max(new_p_count.get(p, 1) - 1, 0)
+            # Increment two new pair counts
+            new_p_count[p[0]+new_e] = new_p_count.get(p[0]+new_e, 0) + 1
+            new_p_count[new_e+p[1]] = new_p_count.get(new_e+p[1], 0) + 1
+
+    return new_p_count
         
 
-def second_half(input):
+def second_half(rules, s_count, p_count, num_step):
+    for step in range(num_step):
+        print(step)
+        p_count = insertion_step(rules, s_count, p_count)
+
+    solution = max(s_count.values()) - min(s_count.values()) 
     solution = 'NOT DONE YET' 
     print('\nSolution for first half!')
     print('SOLUTION DESCRIPTION: {}\n'.format(solution))
@@ -106,9 +69,10 @@ def second_half(input):
 
 def main():
     data = load_data() 
-    rules, template = process_data(data)
-    first_half(10, rules, template)
-    second_half(data)
+    poly, rules, s_count, p_count = process_data(data)
+    first_half(rules, s_count, p_count, 10) 
+    poly, rules, s_count, p_count = process_data(data)
+    second_half(rules, s_count, p_count, 40) 
 
 
 if __name__ == '__main__':
