@@ -1,4 +1,3 @@
-#!/Users/josh/.local/share/virtualenvs/Advent_of_Code-07aOslbA/bin/python3
 
 import numpy as np
 import csv
@@ -22,7 +21,6 @@ def load_data():
 
 
 def create_graph(connections):
-    print(connections)
     graph = {key: set([]) for key in np.unique(connections)}
     for c in connections:
         graph[c[0]].add(c[1])
@@ -50,18 +48,17 @@ def recursive_func(banned_caves, cave, cave_path, graph, num_revisits,
 
     # Check if this is "end"
     if cave == 'end':
-        start_to_end.append(cave_path)
+        start_to_end.add(tuple(cave_path))
         return
-    
+
     # Handle big caves
     if cave.isupper() or cave == 'start':
         for child in graph[cave] - banned_caves:
             recursive_func(set(banned_caves), child, cave_path[:], graph, 
                            num_revisits, start_to_end)
-        return
 
     # Handle small caves
-    if cave.islower():
+    if cave.islower() and not cave == 'start' :
         # Case when a revisit to this cave is allowed
         if num_revisits > 0: 
             for child in graph[cave] - banned_caves - set(['end']):
@@ -74,11 +71,9 @@ def recursive_func(banned_caves, cave, cave_path, graph, num_revisits,
                            num_revisits, start_to_end)
 
 
-
 def first_half(map): 
     graph = create_graph(map)
-    solutions = []
-    print(graph)
+    solutions = set() 
     recursive_func(set(['start']), 'start', [], graph, 0, solutions)
     solution = len(solutions) 
     print('\nSolution for first half!')
@@ -88,11 +83,8 @@ def first_half(map):
 
 def second_half(map):
     graph = create_graph(map)
-    solutions = []
+    solutions = set()
     recursive_func(set(['start']), 'start', [], graph, 1, solutions)
-    print('-------------')
-    for sol in solutions:
-        print(sol)
     solution = len(solutions) 
     print('\nSolution for second half!')
     print('SOLUTION DESCRIPTION: {}\n'.format(solution))
