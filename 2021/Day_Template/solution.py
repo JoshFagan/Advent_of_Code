@@ -24,7 +24,7 @@ def first_half(input):
 
 def second_half(input):
     solution = 'NOT DONE YET' 
-    print('\nSolution for first half!')
+    print('\nSolution for second half!')
     print('SOLUTION DESCRIPTION: {}\n'.format(solution))
     return
 
