@@ -1,6 +1,7 @@
 #!/Users/josh/.local/share/virtualenvs/Advent_of_Code-07aOslbA/bin/python3
 
 import csv
+import numpy as np
 
 
 def load_data():
