@@ -37,17 +37,17 @@ def get_priority(item):
     return ord(item)-96 if item.islower() else ord(item)-38
 
 
-def first_half(input): 
-    input = split_compartments(input)
-    error_items = [get_duplicate(sack) for sack in input]
+def first_half(puzzle_input): 
+    puzzle_input = split_compartments(puzzle_input)
+    error_items = [get_duplicate(sack) for sack in puzzle_input]
     solution = sum([get_priority(item[0]) for item in error_items])
     print('\nSolution for first half!')
     print('SOLUTION DESCRIPTION: {}\n'.format(solution))
     return 
         
 
-def second_half(input):
-    groups = make_groups(input)
+def second_half(puzzle_input):
+    groups = make_groups(puzzle_input)
     badges = [get_badge(group) for group in groups]
     solution = sum([get_priority(item) for item in badges])
     print('\nSolution for second half!')

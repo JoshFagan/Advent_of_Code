@@ -16,14 +16,14 @@ def process_data(raw_data):
     return 
 
 
-def first_half(input): 
+def first_half(puzzle_input): 
     solution = 'NOT DONE YET' 
     print('\nSolution for first half!')
     print('SOLUTION DESCRIPTION: {}\n'.format(solution))
     return 
         
 
-def second_half(input):
+def second_half(puzzle_input):
     solution = 'NOT DONE YET' 
     print('\nSolution for second half!')
     print('SOLUTION DESCRIPTION: {}\n'.format(solution))
