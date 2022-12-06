@@ -7,8 +7,8 @@ import numpy as np
 def load_data():
     # Read contents of file
     with open('data.txt', 'r') as csvfile:
-        data = csv.reader(csvfile, delimiter='<DELIMITER>')
-        data = np.array([[value for value in row] for row in data])
+        reader = csv.reader(csvfile, delimiter='<DELIMITER>')
+        data = np.array([row[0] for row in reader])
     return data
 
 
