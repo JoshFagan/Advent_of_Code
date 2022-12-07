@@ -13,7 +13,7 @@ def load_data():
 
 
 def process_data(raw_data):
-    return 
+    return raw_data 
 
 
 def first_half(puzzle_input): 
@@ -31,8 +31,8 @@ def second_half(puzzle_input):
 
 
 def main():
-    data = load_data() 
-    process_data(data)
+    raw_data = load_data() 
+    data = process_data(raw_data)
     first_half(data)
     second_half(data)
 
