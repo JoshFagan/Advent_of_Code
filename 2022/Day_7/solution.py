@@ -4,6 +4,17 @@ import csv
 import numpy as np
 
 
+class File:
+    def __init__(self, name, size, indent_string):
+        self.name = name
+        self.size = size
+        self.indent_string = indent_string
+
+    def __str__(self):
+        return "{}- {} (file, size={})\n".format(self.indent_string,
+                                                 self.name,
+                                                 self.size)
+
 class Directory:
     def __init__(self, name, parent, indent_string):
         self.name = name
@@ -59,17 +70,6 @@ class Directory:
         if self.parent:
             self.parent.update_size()
 
-
-class File:
-    def __init__(self, name, size, indent_string):
-        self.name = name
-        self.size = size
-        self.indent_string = indent_string
-
-    def __str__(self):
-        return "{}- {} (file, size={})\n".format(self.indent_string,
-                                                 self.name,
-                                                 self.size)
 
 def load_data():
     # Read contents of file
