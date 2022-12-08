@@ -80,10 +80,6 @@ def load_data():
     return data
 
 
-def process_data(raw_data):
-    return raw_data
-
-
 def create_file_system(puzzle_input):
     root = Directory(name='/', parent=None, indent_string='')
     curr_dir = root
